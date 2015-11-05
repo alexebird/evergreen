@@ -23,4 +23,4 @@ rm -f $archive
 cd alexebird-evergreen-*
 
 # should be in an init script
-./bin/evergreen
+ruby ./bin/evergreen.rb

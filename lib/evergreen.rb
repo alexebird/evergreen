@@ -1,6 +1,4 @@
 require 'socket'
-require 'bundler'
-Bundler.require
 
 module Evergreen
 end
