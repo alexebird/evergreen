@@ -1,10 +1,19 @@
-on the yun linux
+# Evergreen
+
+Ping-Pong scoreboard.
+
+## Installation
+
+On the yun linux:
 ```
 opkg update
 opkg install curl
 opkg install ncat
 opkg install bind-dig
-opkg install ruby ruby-gems ruby-json ruby-irb
+opkg install ruby ruby-json
 echo 'nameserver 8.8.8.8' > /root/resolv.conf
 ln -s /root/resolv.conf /etc/resolv.conf
+
+# on start
+curl https://raw.githubusercontent.com/alexebird/evergreen/deploy/bin/evergreen.sh | ash
 ```
