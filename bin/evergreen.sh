@@ -18,11 +18,11 @@ if [ ! -f '/root/resolv.conf' ]; then
   ln -f -s /root/resolv.conf /etc/resolv.conf
 fi
 
-rm -rf alexebird-evergreen-*
+rm -rf evergreen-${branch}
 curl -L -k https://github.com/alexebird/evergreen/archive/${branch}.tar.gz -o ${archive}
 tar xzf $archive
 rm -f $archive
-cd alexebird-evergreen-*
+cd evergreen-${branch}
 
 # should be in an init script
 ruby ./bin/evergreen.rb
