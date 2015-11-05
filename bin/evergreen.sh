@@ -5,9 +5,6 @@
 set -e
 set -vx
 
-branch='deploy'
-archive="${branch}.tar.gz"
-
 cd /root
 
 opkg update
@@ -18,11 +15,9 @@ if [ ! -f '/root/resolv.conf' ]; then
   ln -f -s /root/resolv.conf /etc/resolv.conf
 fi
 
-rm -rf evergreen-${branch}
-curl -L -k https://github.com/alexebird/evergreen/archive/${branch}.tar.gz -o ${archive}
-tar xzf $archive
-rm -f $archive
-cd evergreen-${branch}
+rm -rf evergreen
+git clone git://github.com/alexebird/evergreen.git
+cd evergreen
 
 # should be in an init script
 ruby ./bin/evergreen.rb
