@@ -40,7 +40,8 @@ module Evergreen
       nil
     end
 
-    private def seq_pattern(seq)
+    #@api private
+    def seq_pattern(seq)
       seq[1]
     end
 

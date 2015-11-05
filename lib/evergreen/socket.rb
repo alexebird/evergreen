@@ -6,7 +6,8 @@ module Evergreen
       @sequencer = Sequencer.new
     end
 
-    private def log(msg, ts=false)
+    # @api private
+    def log(msg, ts=false)
       if ts
         $stdout.puts(format('%s: %s', Time.now, msg))
       else
@@ -19,7 +20,8 @@ module Evergreen
       super(host, port)
     end
 
-    private def read_payload
+    # @api private
+    def read_payload
       recvfrom(2)[0]
     end
 

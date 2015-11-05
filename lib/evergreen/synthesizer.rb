@@ -28,17 +28,20 @@ module Evergreen
       end
     end
 
-    private def state_change?
+    # @api private
+    def state_change?
       return false unless @curr_payload
       @last_payload != @curr_payload
     end
 
-    private def update_payloads(new_payload)
+    # @api private
+    def update_payloads(new_payload)
       @last_payload = @curr_payload
       @curr_payload = new_payload
     end
 
-    private def mk_events
+    # @api private
+    def mk_events
       Event.new(@curr_payload.value)
     end
   end
