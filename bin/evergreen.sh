@@ -3,6 +3,7 @@
 # bootstrap the arduino linux
 
 branch='deploy'
+archive="${branch}.tar.gz"
 
 cd /root
 
@@ -14,8 +15,9 @@ if [ ! -f '/root/resolv.conf' ]; then
   ln -s /root/resolv.conf /etc/resolv.conf
 fi
 
-wget https://github.com/alexebird/evergreen/tarball/$branch
-tar xpvf $branch
+curl -L -k https://github.com/alexebird/evergreen/tarball/$branch -o ${archive}
+tar xzf $archive
+rm -f $archive
 cd alexebird-evergreen-*
 
 # should be in an init script
