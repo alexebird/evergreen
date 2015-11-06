@@ -5,7 +5,7 @@ module Evergreen
 
     def initialize(val)
       @value, @ts = val, Time.now.utc
-      puts to_s
+      $logout.puts to_s
     end
 
     def <=>(other)

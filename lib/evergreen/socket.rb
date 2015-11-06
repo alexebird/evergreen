@@ -9,9 +9,9 @@ module Evergreen
     # @api private
     def log(msg, ts=false)
       if ts
-        $stdout.puts(format('%s: %s', Time.now, msg))
+        $logout.puts(format('%s: %s', Time.now, msg))
       else
-        $stdout.puts(msg)
+        $logout.puts(msg)
       end
     end
 
