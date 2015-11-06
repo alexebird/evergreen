@@ -25,7 +25,7 @@ git clone git://github.com/alexebird/evergreen.git || exit 2
 cd evergreen
 local ifconfig_f='/root/ifconfig.txt'
 ifconfig | tr '\n' '$' > $ifconfig_f
-curl -XPOST $mothership:8889/arduino -d @$ifconfig_f
+curl -XPOST $mothership:8889/arduino -d @$ifconfig_f || echo could send ifconfig
 rm -f $ifconfig_f
 
 echo starting server...
