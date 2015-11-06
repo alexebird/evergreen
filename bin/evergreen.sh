@@ -28,7 +28,6 @@ curl -XPOST $mothership:8889/arduino -d @$ifconfig_f || echo couldnt send ifconf
 rm -f $ifconfig_f
 
 echo starting server...
-# should be in an init script maybe...
 ruby ./bin/evergreen.rb &
 pid=$!
 sleep 4
