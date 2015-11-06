@@ -17,18 +17,15 @@ if [ ! -f '/root/resolv.conf' ]; then
   ln -f -s /root/resolv.conf /etc/resolv.conf
 fi
 
-ping -c2 $mothership
-[ $? -eq 0 ] || exit 1
+ping -c2 $mothership || exit 1
 
 rm -rf evergreen
-git clone git://github.com/alexebird/evergreen.git
-[ $? -eq 0 ] || exit 2
+git clone git://github.com/alexebird/evergreen.git || exit 2
 
 cd evergreen
 local ifconfig_f='/root/ifconfig.txt'
 ifconfig | tr '\n' '$' > $ifconfig_f
-curl -f -XPOST $mothership:8889/arduino -d @$ifconfig_f
-#[ $? -eq 0 ] || exit 3
+curl -XPOST $mothership:8889/arduino -d @$ifconfig_f
 rm -f $ifconfig_f
 
 # should be in an init script maybe...
