@@ -5,10 +5,15 @@ module Evergreen
 
     def initialize(val)
       @value, @ts = val, Time.now.utc
+      puts to_s
     end
 
     def <=>(other)
       value <=> other.value
+    end
+
+    def to_s
+      format('%s @ %s', value, ts.to_s)
     end
   end
 
