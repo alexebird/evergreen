@@ -118,6 +118,6 @@ void runNcat(String payload) {
   Serial.println(payload);
   Process p;
   // are Strings GC'd?
-  p.runShellCommand("echo -n " + payload + " | ncat --send-only -u mothership.alxb.us 8888");
+  p.runShellCommand("echo -n " + payload + " | ncat --send-only -u localhost 8888");
   //Asynchronously
 }

@@ -15,7 +15,7 @@ module Evergreen
       end
     end
 
-    def bind(host='0.0.0.0', port=8888)
+    def bind(host='localhost', port=8888)
       log format('evergreen bound to udp://%s:%d', host, port)
       super(host, port)
     end
