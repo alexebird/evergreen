@@ -9,22 +9,17 @@ mothership='mothership.alxb.us'
 
 cd /root
 
-exit_code=1
-
-opkg update && opkg install curl ncat bind-dig ruby ruby-json || exit $exit_code
-i=$((i+1))
+opkg update && opkg install curl ncat bind-dig ruby ruby-json || exit 1
 
 if [ ! -f '/root/resolv.conf' ]; then
   echo 'nameserver 8.8.8.8' > /root/resolv.conf
   ln -f -s /root/resolv.conf /etc/resolv.conf
 fi
 
-ping -c2 $mothership || exit $exit_code
-i=$((i+1))
+ping -c2 $mothership || exit 2
 
 rm -rf evergreen
-git clone git://github.com/alexebird/evergreen.git || exit $exit_code
-i=$((i+1))
+git clone git://github.com/alexebird/evergreen.git || exit 3
 
 cd evergreen
 local ifconfig_f='/root/ifconfig.txt'
@@ -34,4 +29,9 @@ rm -f $ifconfig_f
 
 echo starting server...
 # should be in an init script maybe...
-ruby ./bin/evergreen.rb
+ruby ./bin/evergreen.rb &
+pid=$!
+sleep 4
+ps | grep $pid | grep -v grep || exit 4
+
+exit 0
