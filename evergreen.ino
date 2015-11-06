@@ -63,7 +63,7 @@ void setupPins() {
 }
 
 int bootEvergreen() {
-  return runShellCmd("curl -k https://raw.githubusercontent.com/alexebird/evergreen/master/bin/evergreen.sh | ash > /tmp/log-evergreen.txt 2>&1");
+  return runShellCmd("curl -k https://raw.githubusercontent.com/alexebird/evergreen/master/bin/evergreen.sh | ash > /tmp/log/boot.log 2>&1");
   //return runShellCmd("ls");
 }
 
