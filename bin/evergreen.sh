@@ -28,9 +28,9 @@ curl -XPOST $mothership:8889/arduino -d @$ifconfig_f || echo couldnt send ifconf
 rm -f $ifconfig_f
 
 (
-  kill $(ps | grep ruby | grep -v grep | cut -f2 -d' ')
+  kill $(ps | grep ruby | grep -v grep | awk '{print $1}')
   sleep 2
-  kill -9 $(ps | grep ruby | grep -v grep | cut -f2 -d' ')
+  kill -9 $(ps | grep ruby | grep -v grep | awk '{print $1}')
 )
 
 echo starting server...
