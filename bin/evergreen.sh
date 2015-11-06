@@ -22,7 +22,7 @@ rm -rf evergreen
 git clone git://github.com/alexebird/evergreen.git || exit 3
 
 cd evergreen
-local ifconfig_f='/root/ifconfig.txt'
+ifconfig_f='/root/ifconfig.txt'
 ifconfig | tr '\n' '$' > $ifconfig_f
 curl -XPOST $mothership:8889/arduino -d @$ifconfig_f || echo couldnt send ifconfig
 rm -f $ifconfig_f
@@ -34,7 +34,7 @@ rm -f $ifconfig_f
 )
 
 echo starting server...
-ruby ./bin/evergreen.rb &
+ruby ./bin/evergreen.rb > /root/server.log 2>&1 &
 pid=$!
 sleep 4
 ps | grep $pid | grep -v grep || exit 4
