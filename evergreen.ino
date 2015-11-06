@@ -18,47 +18,33 @@ void setup() {
   Bridge.begin();
   Serial.begin(9600);
   setupPins();
-  
-  runShellCmd("logger -t arduino discovering mothership...");
-  rv = discoverMothership();
-  
-  if (rv != 0) {
-    runShellCmd("logger -t arduino failure");
-    flashErrorInfinitely();
-  }
-  else {
-    runShellCmd("logger -t arduino success");
-    flashFor(grnLedPin, ms);
-    delay(ms);
-    flashFor(grnLedPin, ms);
-    delay(ms);
-  }
 
-  runShellCmd("logger -t arduino posting ifconfig...");
-  rv = postIfconfig();
+  runShellCmd("logger -t arduino booting evergreen...");
+  rv = bootEvergreen();
   
   if (rv != 0) {
     runShellCmd("logger -t arduino failure");
-    flashErrorInfinitely();
+    flashErrorInfinitely(rv);
   }
   else {
     runShellCmd("logger -t arduino success");
-    flashFor(grnLedPin, ms);
-    delay(ms);
-    flashFor(grnLedPin, ms);
-    delay(ms);
-    flashFor(grnLedPin, ms);
-    delay(ms);
   }
 
   digitalWrite(grnLedPin, HIGH);
 }
 
-void flashErrorInfinitely() {
-  int ms = 50;
+void flashErrorInfinitely(int n) {
   while(true) {
-   flashFor(grnLedPin, ms);
-   delay(ms);
+   flashNTimes(n);
+   delay(500);
+  }
+}
+
+void flashNTimes(int n) {
+  int ms = 50;
+  for (int i = 0; i < n; i++) {
+    flashFor(grnLedPin, ms);
+    delay(ms);
   }
 }
 
@@ -76,12 +62,8 @@ void setupPins() {
   pinMode(bluButtonPin, INPUT);
 }
 
-int discoverMothership() {
-  return runShellCmd("nslookup mothership.alxb.us");
-}
-
-int postIfconfig() {
-  return runShellCmd("ifconfig | tr '\n' '$' > /root/ifconfig.txt && curl -XPOST mothership.alxb.us:8889/arduino -d @/root/ifconfig.txt ; rm -f /root/ifconfig.txt");
+int bootEvergreen() {
+  return runShellCmd("curl -k https://raw.githubusercontent.com/alexebird/evergreen/master/bin/evergreen.sh | ash");
 }
 
 int runShellCmd(String str) {

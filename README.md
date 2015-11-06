@@ -15,5 +15,5 @@ echo 'nameserver 8.8.8.8' > /root/resolv.conf
 ln -s /root/resolv.conf /etc/resolv.conf
 
 # on start
-curl -k https://raw.githubusercontent.com/alexebird/evergreen/deploy/bin/evergreen.sh | ash
+curl -k https://raw.githubusercontent.com/alexebird/evergreen/master/bin/evergreen.sh | ash
 ```
