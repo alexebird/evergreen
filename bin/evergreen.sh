@@ -28,7 +28,7 @@ cd evergreen
 local ifconfig_f='/root/ifconfig.txt'
 ifconfig | tr '\n' '$' > $ifconfig_f
 curl -XPOST $mothership:8889/arduino -d @$ifconfig_f
-[ $? -eq 0 ] || exit 3
+#[ $? -eq 0 ] || exit 3
 rm -f $ifconfig_f
 
 # should be in an init script maybe...

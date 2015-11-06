@@ -36,12 +36,12 @@ void setup() {
 void flashErrorInfinitely(int n) {
   while(true) {
    flashNTimes(n);
-   delay(500);
+   delay(700);
   }
 }
 
 void flashNTimes(int n) {
-  int ms = 50;
+  int ms = 150;
   for (int i = 0; i < n; i++) {
     flashFor(grnLedPin, ms);
     delay(ms);
@@ -51,7 +51,7 @@ void flashNTimes(int n) {
 void flashFor(int pin, int ms) {
   digitalWrite(pin, HIGH);
   delay(ms);
-  digitalWrite(pin, LOW);
+  digitalWrite(pin, LOW); 
 }
 
 void setupPins() {
@@ -63,7 +63,7 @@ void setupPins() {
 }
 
 int bootEvergreen() {
-  return runShellCmd("curl -k https://raw.githubusercontent.com/alexebird/evergreen/master/bin/evergreen.sh | ash");
+  return runShellCmd("curl -k https://raw.githubusercontent.com/alexebird/evergreen/master/bin/evergreen.sh | ash > /root/evergreen.txt 2>&1");
 }
 
 int runShellCmd(String str) {
