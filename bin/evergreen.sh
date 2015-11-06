@@ -28,5 +28,6 @@ ifconfig | tr '\n' '$' > $ifconfig_f
 curl -XPOST $mothership:8889/arduino -d @$ifconfig_f
 rm -f $ifconfig_f
 
+echo starting server...
 # should be in an init script maybe...
 ruby ./bin/evergreen.rb
