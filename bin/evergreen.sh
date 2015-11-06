@@ -34,7 +34,7 @@ rm -f $ifconfig_f
 )
 
 echo starting server...
-ruby ./bin/evergreen.rb > /root/server.log 2>&1 &
+ruby ./bin/evergreen.rb /root/server.log > /dev/null 2>&1 &
 pid=$!
 sleep 4
 ps | grep $pid | grep -v grep || exit 4
