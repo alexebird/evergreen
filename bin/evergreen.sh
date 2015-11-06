@@ -27,9 +27,11 @@ ifconfig | tr '\n' '$' > $ifconfig_f
 curl -XPOST $mothership:8889/arduino -d @$ifconfig_f || echo couldnt send ifconfig
 rm -f $ifconfig_f
 
-kill $(ps | grep ruby | grep -v grep | cut -f2 -d' ')
-sleep 2
-kill -9 $(ps | grep ruby | grep -v grep | cut -f2 -d' ')
+(
+  kill $(ps | grep ruby | grep -v grep | cut -f2 -d' ')
+  sleep 2
+  kill -9 $(ps | grep ruby | grep -v grep | cut -f2 -d' ')
+)
 
 echo starting server...
 ruby ./bin/evergreen.rb &
