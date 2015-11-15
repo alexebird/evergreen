@@ -184,7 +184,7 @@ btn_mask btn_seq_action(btn_mask seq) {
         /*seq = SEQ_PUSH(seq, NULL_MASK);*/
         /*return 0b0;*/
     }
-    else if ((seq & MASK_x3) == MASK_BLU_DEC_POINT) {
+    else if ((seq & MASK_x4) == MASK_BLU_DEC_POINT) {
         detected = true;
         Serial.println("blu dec point");
         /*seq = SEQ_PUSH(seq, NULL_MASK);*/
@@ -196,7 +196,7 @@ btn_mask btn_seq_action(btn_mask seq) {
         /*seq = SEQ_PUSH(seq, NULL_MASK);*/
         /*return 0b0;*/
     }
-    else if ((seq & MASK_x3) == MASK_RED_DEC_POINT) {
+    else if ((seq & MASK_x4) == MASK_RED_DEC_POINT) {
         detected = true;
         Serial.println("red dec point");
         /*seq = SEQ_PUSH(seq, NULL_MASK);*/
