@@ -1,22 +1,21 @@
-export MOTHERSHIP="http://mothership.alxb.us:8889"
-
 #!/bin/ash
 
- #bootstrap the arduino linux
+#bootstrap the arduino linux
 
-#set -e
-#set -vx
+set -e
+set -vx
+
+opkg update && opkg install curl bind-dig coreutils-base64
+
+if [ ! -f '/root/resolv.conf' ]; then
+	echo 'nameserver 8.8.8.8' > /root/resolv.conf
+	ln -f -s /root/resolv.conf /etc/resolv.conf
+fi
+
 
 #mothership='mothership.alxb.us'
 
 #cd /tmp
-
-#opkg update && opkg install curl ncat bind-dig ruby ruby-json || exit 1
-
-#if [ ! -f '/root/resolv.conf' ]; then
-  #echo 'nameserver 8.8.8.8' > /root/resolv.conf
-  #ln -f -s /root/resolv.conf /etc/resolv.conf
-#fi
 
 #ping -c2 $mothership || exit 2
 

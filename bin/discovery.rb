@@ -1,16 +1,21 @@
 #!/usr/bin/env ruby
 
 require 'sinatra'
+require 'base64'
 require 'byebug'
 
-def decode_ifconfig(ifconfig)
-  ifconfig.gsub("$", "\n").gsub(/^/, '    ')
+post '/api/new_name' do
+  status 201
 end
 
-get '/mothership' do
-  `ifconfig  | grep -A1 en0 | tail -1 | cut -f2 -d' '`
+post '/api/:color/points' do
+  status 201
 end
 
-post '/arduino' do
-  puts decode_ifconfig request.body.string
+delete '/api/:color/points' do
+  status 201
+end
+
+put '/api/debug' do
+  puts Base64.decode64(request.body.string)
 end
