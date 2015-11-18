@@ -1,5 +1,0 @@
-source "http://gems.iseesmic.com"
-source "http://rubygems.org"
-
-# Specify your gem's dependencies in daemonize.gemspec
-gemspec
