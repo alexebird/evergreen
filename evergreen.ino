@@ -135,40 +135,42 @@ btn_mask handleBtns(btn_mask seq, int currBlu, int currRed) {
     return seq;
 }
 
-const String auth = "-H\"Authorization: ae79df15-9feb-46ff-9c93-5bcd5b20e065\"";
+String curl_api(String path) {
+    return  "/bin/ash -c '. /root/evergreen-env.sh ; curl -k -XPOST -H'Authorization: ${GRPINGPONG_API_KEY}' $MOTHERSHIP/api/" + path + "'";
+}
 
 void btn_seq_action(btn_mask seq) {
     if ((seq & MASK_x3) == MASK_BLU_INC_POINT) {
         detected = true;
         Serial.println("blu inc point");
-        runShellCmd("/bin/ash -c '. /root/evergreen.sh ; curl -k -XPOST " + auth + " $MOTHERSHIP/api/scoreboard_games/blue/increment'");
+        runShellCmd(curl_api("scoreboard_games/blue/increment"));
     }
     else if ((seq & MASK_x4) == MASK_BLU_DEC_POINT) {
         detected = true;
         Serial.println("blu dec point");
-        runShellCmd("/bin/ash -c '. /root/evergreen.sh ; curl -k -XPOST " + auth + " $MOTHERSHIP/api/scoreboard_games/blue/decrement'");
+        runShellCmd(curl_api("scoreboard_games/blue/decrement"));
     }
     else if ((seq & MASK_x3) == MASK_RED_INC_POINT) {
         detected = true;
         Serial.println("red inc point");
-        runShellCmd("/bin/ash -c '. /root/evergreen.sh ; curl -k -XPOST " + auth + " $MOTHERSHIP/api/scoreboard_games/red/increment'");
+        runShellCmd(curl_api("scoreboard_games/red/increment"));
     }
     else if ((seq & MASK_x4) == MASK_RED_DEC_POINT) {
         detected = true;
         Serial.println("red dec point");
-        runShellCmd("/bin/ash -c '. /root/evergreen.sh ; curl -k -XPOST " + auth + " $MOTHERSHIP/api/scoreboard_games/red/decrement'");
+        runShellCmd(curl_api("scoreboard_games/red/decrement"));
     }
     else if (((seq & MASK_x2) == MASK_NEW_GAME1) ||
              ((seq & MASK_x3) == MASK_NEW_GAME2) ||
              ((seq & MASK_x3) == MASK_NEW_GAME3)) {
         detected = true;
         Serial.println("new game");
-        runShellCmd("/bin/ash -c '. /root/evergreen.sh ; curl -k -XPOST " + auth + " $MOTHERSHIP/api/scoreboard_games'");
+        runShellCmd(curl_api("scoreboard_games"));
     }
     else if ((seq & MASK_x2) == MASK_DEBUG) {
         detected = true;
         Serial.println("debug");
-        runShellCmd("/bin/ash -c '. /root/evergreen.sh ; /root/debug.sh'");
+        runShellCmd("/bin/ash -c '. /root/evergreen-env.sh ; /root/debug.sh'");
         flashOnce(dbgLedPin, 200);
         delay(200);
         flashOnce(dbgLedPin, 200);
@@ -188,4 +190,4 @@ void runShellCmd(String str) {
     Serial.flush();
 }
 
-/* vim: set expandtab ts=4 sw=4 ai : */
+/* vim: set expandtab ts=4 sw=4 ft=c ai : */
