@@ -1,4 +1,4 @@
-export MOTHERSHIP="http://mothership.alxb.us:8889"
+export MOTHERSHIP="https://gr-ping-pong-staging.herokuapp.com"
 
 #!/bin/ash
 

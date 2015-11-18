@@ -55,7 +55,7 @@ void loop() {
 
     /*if (currDbg == LOW && lastDbg == HIGH) {*/
         /*Serial.println("debug");*/
-        /*runShellCmd("/tmp/debug.sh");*/
+        /*runShellCmd("/root/debug.sh");*/
     /*}*/
     /*lastDbg = currDbg;*/
 
@@ -135,38 +135,40 @@ btn_mask handleBtns(btn_mask seq, int currBlu, int currRed) {
     return seq;
 }
 
+const String auth = "-H\"Authorization: ae79df15-9feb-46ff-9c93-5bcd5b20e065\"";
+
 void btn_seq_action(btn_mask seq) {
     if ((seq & MASK_x3) == MASK_BLU_INC_POINT) {
         detected = true;
         Serial.println("blu inc point");
-        runShellCmd("/bin/ash -c '. /tmp/evergreen.sh ; curl -v -XPOST $MOTHERSHIP/api/blu/points'");
+        runShellCmd("/bin/ash -c '. /root/evergreen.sh ; curl -k -XPOST " + auth + " $MOTHERSHIP/api/scoreboard_games/blue/increment'");
     }
     else if ((seq & MASK_x4) == MASK_BLU_DEC_POINT) {
         detected = true;
         Serial.println("blu dec point");
-        runShellCmd("/bin/ash -c '. /tmp/evergreen.sh ; curl -XDELETE $MOTHERSHIP/api/blu/points'");
+        runShellCmd("/bin/ash -c '. /root/evergreen.sh ; curl -k -XPOST " + auth + " $MOTHERSHIP/api/scoreboard_games/blue/decrement'");
     }
     else if ((seq & MASK_x3) == MASK_RED_INC_POINT) {
         detected = true;
         Serial.println("red inc point");
-        runShellCmd("/bin/ash -c '. /tmp/evergreen.sh ; curl -XPOST $MOTHERSHIP/api/red/points'");
+        runShellCmd("/bin/ash -c '. /root/evergreen.sh ; curl -k -XPOST " + auth + " $MOTHERSHIP/api/scoreboard_games/red/increment'");
     }
     else if ((seq & MASK_x4) == MASK_RED_DEC_POINT) {
         detected = true;
         Serial.println("red dec point");
-        runShellCmd("/bin/ash -c '. /tmp/evergreen.sh ; curl -XDELETE $MOTHERSHIP/api/red/points'");
+        runShellCmd("/bin/ash -c '. /root/evergreen.sh ; curl -k -XPOST " + auth + " $MOTHERSHIP/api/scoreboard_games/red/decrement'");
     }
     else if (((seq & MASK_x2) == MASK_NEW_GAME1) ||
              ((seq & MASK_x3) == MASK_NEW_GAME2) ||
              ((seq & MASK_x3) == MASK_NEW_GAME3)) {
         detected = true;
         Serial.println("new game");
-        runShellCmd("/bin/ash -c '. /tmp/evergreen.sh ; curl -XPOST $MOTHERSHIP/api/new_name'");
+        runShellCmd("/bin/ash -c '. /root/evergreen.sh ; curl -k -XPOST " + auth + " $MOTHERSHIP/api/scoreboard_games'");
     }
     else if ((seq & MASK_x2) == MASK_DEBUG) {
         detected = true;
         Serial.println("debug");
-        runShellCmd("/bin/ash -c '. /tmp/evergreen.sh ; /tmp/debug.sh'");
+        runShellCmd("/bin/ash -c '. /root/evergreen.sh ; /root/debug.sh'");
         flashOnce(dbgLedPin, 200);
         delay(200);
         flashOnce(dbgLedPin, 200);

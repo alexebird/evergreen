@@ -1,4 +1,5 @@
-#!/bin/ash
+#!/bin/bash
 
-scp bin/evergreen.sh root@10.0.1.28:/tmp/
-scp bin/debug.sh root@10.0.1.28:/tmp/
+ip=10.0.32.40
+scp bin/evergreen.sh root@$ip:/root/
+scp bin/debug.sh root@$ip:/root/
