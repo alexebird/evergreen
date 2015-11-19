@@ -22,7 +22,7 @@ typedef unsigned long tyme;
 
 #define MASK_DEBUG   ( BLU_MASK | HOLD_MASK )
 
-#define HOLD_DOWN_MILLIS 2000
+#define HOLD_DOWN_MILLIS 1000
 
 #define MASK_x1 0b1111
 #define MASK_x2 0b11111111

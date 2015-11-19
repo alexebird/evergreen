@@ -136,14 +136,16 @@ btn_mask handleBtns(btn_mask seq, int currBlu, int currRed) {
 }
 
 String curl_api(String path) {
-    return  "/bin/ash -c '. /root/evergreen-env.sh ; curl -k -XPOST -H'Authorization: ${GRPINGPONG_API_KEY}' $MOTHERSHIP/api/" + path + "'";
+    return  "/bin/ash -c '. /root/evergreen-env.sh ; curl -k -XPOST -H\"Authorization: ${GRPINGPONG_API_KEY}\" ${MOTHERSHIP}/api/" + path + "'";
 }
 
 void btn_seq_action(btn_mask seq) {
     if ((seq & MASK_x3) == MASK_BLU_INC_POINT) {
         detected = true;
         Serial.println("blu inc point");
+        flashOnce(dbgLedPin, 200);
         runShellCmd(curl_api("scoreboard_games/blue/increment"));
+        flashOnce(dbgLedPin, 200);
     }
     else if ((seq & MASK_x4) == MASK_BLU_DEC_POINT) {
         detected = true;
@@ -179,7 +181,8 @@ void btn_seq_action(btn_mask seq) {
 
 void runShellCmd(String str) {
     Process p;
-    p.runShellCommandAsynchronously(str);
+    p.runShellCommand(str);
+    /*p.runShellCommandAsynchronously(str);*/
     char c;
 
     while (p.available() > 0) {
