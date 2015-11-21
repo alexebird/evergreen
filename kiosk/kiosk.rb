@@ -90,7 +90,9 @@ class ScoreboardGame
       {
         'created_at' => @created_at.to_s,
         'updated_at' => @updated_at.to_s,
-        'players' => @players.values.map(&:as_json),
+        'players' => @players.map do |k,v|
+          {k => v.as_json}
+        end.reduce(&:merge)
       }
     )
   end
@@ -112,12 +114,23 @@ def render_game(code)
   game.to_json
 end
 
-post '/scoreboard_game' do
+
+set :public_folder, 'public'
+
+get '/scoreboard_game.json' do
+  render_game 200
+end
+
+post '/scoreboard_game.json' do
   new_game
   render_game 201
 end
 
-put '/scoreboard_game/:color/:point_action' do
+put '/scoreboard_game/:color/:point_action.json' do
   game.player_action(params[:color], params[:point_action])
   render_game 200
+end
+
+get '/' do
+  redirect '/index.html'
 end
