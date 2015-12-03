@@ -132,5 +132,5 @@ put '/scoreboard_game/:color/:point_action.json' do
 end
 
 get '/' do
-  redirect '/index.html'
+  send_file '/index.html'
 end
