@@ -177,3 +177,22 @@ textarea {
 .clearfix:after {
     clear: both;
 }
+
+.score {
+    font-size: 3000%;
+    float: left;
+    width: 50%;
+    text-align: center;
+}
+
+body {
+    background-color: black;
+}
+
+#red-score {
+    color: #f33;
+}
+
+#blue-score {
+    color: #33f;
+}

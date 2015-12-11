@@ -8,8 +8,8 @@ set -vx
 opkg update && opkg install curl bind-dig coreutils-base64
 
 if [ ! -f '/root/resolv.conf' ]; then
-	echo 'nameserver 8.8.8.8' > /root/resolv.conf
-	ln -f -s /root/resolv.conf /etc/resolv.conf
+  echo 'nameserver 8.8.8.8' > /root/resolv.conf
+  ln -f -s /root/resolv.conf /etc/resolv.conf
 fi
 
 

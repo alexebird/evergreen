@@ -5,6 +5,10 @@ require './bundle/bundler/setup'
 require 'json'
 require 'sinatra'
 
+set :bind, '0.0.0.0'
+set :port, 80
+set :logging, true
+
 module Util
   extend self
 

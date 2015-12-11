@@ -17,3 +17,6 @@ ln -s /root/resolv.conf /etc/resolv.conf
 # on start
 curl -k https://raw.githubusercontent.com/alexebird/evergreen/master/bin/evergreen.sh | ash
 ```
+
+useful:
+- https://www.danpurdy.co.uk/web-development/raspberry-pi-kiosk-screen-tutorial/

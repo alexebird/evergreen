@@ -135,8 +135,8 @@ btn_mask handleBtns(btn_mask seq, int currBlu, int currRed) {
     return seq;
 }
 
-String curl_api(String path) {
-    return  "/bin/ash -c '. /root/evergreen-env.sh ; curl -k -XPOST -H\"Authorization: ${GRPINGPONG_API_KEY}\" ${MOTHERSHIP}/api/" + path + "'";
+String curl_api(String func) {
+    return  "/bin/ash -c '. /root/evergreen.sh ; " + func + "'";
 }
 
 void btn_seq_action(btn_mask seq) {
@@ -144,30 +144,30 @@ void btn_seq_action(btn_mask seq) {
         detected = true;
         Serial.println("blu inc point");
         flashOnce(dbgLedPin, 200);
-        runShellCmd(curl_api("scoreboard_games/blue/increment"));
+        runShellCmd(curl_api("blue_inc_point"));
         flashOnce(dbgLedPin, 200);
     }
     else if ((seq & MASK_x4) == MASK_BLU_DEC_POINT) {
         detected = true;
         Serial.println("blu dec point");
-        runShellCmd(curl_api("scoreboard_games/blue/decrement"));
+        runShellCmd(curl_api("blue_dec_point"));
     }
     else if ((seq & MASK_x3) == MASK_RED_INC_POINT) {
         detected = true;
         Serial.println("red inc point");
-        runShellCmd(curl_api("scoreboard_games/red/increment"));
+        runShellCmd(curl_api("red_inc_point"));
     }
     else if ((seq & MASK_x4) == MASK_RED_DEC_POINT) {
         detected = true;
         Serial.println("red dec point");
-        runShellCmd(curl_api("scoreboard_games/red/decrement"));
+        runShellCmd(curl_api("red_dec_point"));
     }
     else if (((seq & MASK_x2) == MASK_NEW_GAME1) ||
              ((seq & MASK_x3) == MASK_NEW_GAME2) ||
              ((seq & MASK_x3) == MASK_NEW_GAME3)) {
         detected = true;
         Serial.println("new game");
-        runShellCmd(curl_api("scoreboard_games"));
+        runShellCmd(curl_api("new_game"));
     }
     else if ((seq & MASK_x2) == MASK_DEBUG) {
         detected = true;
